@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:paddingHorizontal="18dp"
+    android:paddingVertical="15dp">
+
+    <TextView
+        android:id="@+id/tvRecipeNumber"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:background="@drawable/bg_status_chip"
+        android:gravity="center"
+        android:textColor="#FF1A3B2C"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvRecipeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#111418"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="토마토 달걀볶음" />
+
+        <TextView
+            android:id="@+id/tvRecipeSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="#5F6B73"
+            android:textSize="13sp"
+            tools:text="부드러운 달걀과 토마토 산미가 잘 어울리는 빠른 한 끼입니다." />
+
+        <TextView
+            android:id="@+id/tvRecipeIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:singleLine="true"
+            android:textColor="#8A656F77"
+            android:textSize="12sp"
+            tools:text="토마토 · 달걀 · 양파 · 간장" />
+
+    </LinearLayout>
+
+</LinearLayout>
