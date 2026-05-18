@@ -118,7 +118,8 @@ class CameraFragment : Fragment() {
         btnSortCalories.setOnClickListener { viewModel.changeSortMode(SortMode.CALORIES_ASC) }
 
         observeUiState()
-        observeAuthState()
+        //observeAuthState()
+        showStartScreen()
     }
 
     private fun bindViews(view: View) {

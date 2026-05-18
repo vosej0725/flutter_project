@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F0DF"> <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="💡 FoodRecipe AI 가이드"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#005088"
+        android:layout_marginBottom="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="20dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1단계: 재료 사진 찍기"
+            android:textStyle="bold"
+            android:textColor="#11CAA0"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카메라 화면 중앙에 재료를 놓으면 AI가 자동으로 감지합니다."
+            android:textColor="#2E4D68"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/guide_step1"
+            android:scaleType="centerInside"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="20dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2단계: 레시피 확인"
+            android:textStyle="bold"
+            android:textColor="#11CAA0"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[레시피 확인] 버튼을 누르면 AI가 최적의 요리 5가지를 생성합니다."
+            android:textColor="#2E4D68"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/guide_step2"
+            android:scaleType="centerInside"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="20dp"
+        android:layout_marginBottom="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3단계: 요리 시작!"
+            android:textStyle="bold"
+            android:textColor="#11CAA0"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원하는 요리를 클릭하여 상세한 조리 단계와 팁을 확인하세요."
+            android:textColor="#2E4D68"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/guide_step3"
+            android:scaleType="centerInside"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="카메라로 돌아가기"
+        android:backgroundTint="#005088"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>
+</ScrollView>
+
