@@ -35,11 +35,13 @@ class GeminiRepository {
             각 레시피는 서로 다른 조리 방식이나 맛 방향이어야 해.
             식재료가 부족하면 집에 흔히 있는 기본 재료(소금, 후추, 식용유, 간장, 설탕, 마늘, 파)는 추가해도 돼.
             steps는 초보자가 그대로 따라 할 수 있게 5~8단계로 짧고 구체적으로 작성해.
+            calories는 1인분 기준 대략적인 열량(kcal)을 정수로 적어줘.
 
             [
               {
                 "title": "요리명",
                 "summary": "한 줄 설명",
+                "calories": 450,
                 "ingredients": ["재료 1", "재료 2"],
                 "steps": ["1단계", "2단계", "3단계"],
                 "tip": "실패를 줄이는 팁"
@@ -100,6 +102,7 @@ class GeminiRepository {
                 RecipeRecommendation(
                     title = obj.optString("title").ifBlank { "추천 레시피 ${i + 1}" },
                     summary = obj.optString("summary"),
+                    calories = obj.optInt("calories", 0),
                     ingredients = obj.optJSONArray("ingredients").toStringList(),
                     steps = obj.optJSONArray("steps").toStringList(),
                     tip = obj.optString("tip")

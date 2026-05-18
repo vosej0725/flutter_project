@@ -52,6 +52,8 @@ class CameraFragment : Fragment() {
     private lateinit var cardRecipes: LinearLayout
     private lateinit var tvRecipeContext: TextView
     private lateinit var rvRecipes: RecyclerView
+    private lateinit var btnSortMatch: Button
+    private lateinit var btnSortCalories: Button
     private lateinit var panelRecipeDetail: ScrollView
     private lateinit var tvDetailTitle: TextView
     private lateinit var tvDetailSummary: TextView
@@ -112,6 +114,8 @@ class CameraFragment : Fragment() {
         view.findViewById<Button>(R.id.btnRescan).setOnClickListener { startCameraAndScan() }
         view.findViewById<Button>(R.id.btnScanAgainFromRecipes).setOnClickListener { startCameraAndScan() }
         view.findViewById<Button>(R.id.btnBackToRecipes).setOnClickListener { viewModel.backToRecipes() }
+        btnSortMatch.setOnClickListener { viewModel.changeSortMode(SortMode.INGREDIENT_MATCH) }
+        btnSortCalories.setOnClickListener { viewModel.changeSortMode(SortMode.CALORIES_ASC) }
 
         observeUiState()
         observeAuthState()
@@ -133,6 +137,8 @@ class CameraFragment : Fragment() {
         cardRecipes = view.findViewById(R.id.cardRecipes)
         tvRecipeContext = view.findViewById(R.id.tvRecipeContext)
         rvRecipes = view.findViewById(R.id.rvRecipes)
+        btnSortMatch = view.findViewById(R.id.btnSortMatch)
+        btnSortCalories = view.findViewById(R.id.btnSortCalories)
         panelRecipeDetail = view.findViewById(R.id.panelRecipeDetail)
         tvDetailTitle = view.findViewById(R.id.tvDetailTitle)
         tvDetailSummary = view.findViewById(R.id.tvDetailSummary)
@@ -200,6 +206,7 @@ class CameraFragment : Fragment() {
                             tvStatus.text = "추천 결과가 준비됐습니다"
                             tvRecipeContext.text = "음식 리스트: $detectedText"
                             recipeAdapter.submitRecipes(state.recipes)
+                            updateSortButtons(state.sortMode)
                             cardRecipes.visibility = View.VISIBLE
                         }
                         is RecipeUiState.RecipeDetail -> {
@@ -407,6 +414,20 @@ class CameraFragment : Fragment() {
             .map { (_, items) -> items.maxBy { it.confidence } }
             .sortedByDescending { it.confidence }
             .joinToString(", ") { "${it.label} ${(it.confidence * 100).toInt()}%" }
+    }
+
+    private fun updateSortButtons(mode: SortMode) {
+        if (mode == SortMode.INGREDIENT_MATCH) {
+            btnSortMatch.setBackgroundResource(R.drawable.bg_primary_button)
+            btnSortMatch.setTextColor(android.graphics.Color.parseColor("#07120D"))
+            btnSortCalories.setBackgroundResource(R.drawable.bg_secondary_button)
+            btnSortCalories.setTextColor(android.graphics.Color.parseColor("#FF182026"))
+        } else {
+            btnSortCalories.setBackgroundResource(R.drawable.bg_primary_button)
+            btnSortCalories.setTextColor(android.graphics.Color.parseColor("#07120D"))
+            btnSortMatch.setBackgroundResource(R.drawable.bg_secondary_button)
+            btnSortMatch.setTextColor(android.graphics.Color.parseColor("#FF182026"))
+        }
     }
 
     private fun dp(value: Int): Int {

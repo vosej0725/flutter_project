@@ -29,6 +29,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     private var latestDetections: List<DetectionResult> = emptyList()
     private var latestRecipes: List<RecipeRecommendation> = emptyList()
+    private var currentSortMode: SortMode = SortMode.INGREDIENT_MATCH
 
     init {
         _authState.value = authRepo.initialize()
@@ -133,7 +134,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                     RecipeUiState.Empty(EmptyReason.NO_RECIPE_FOUND)
                 } else {
                     latestRecipes = recipes
-                    RecipeUiState.RecipesReady(detections, recipes)
+                    val sorted = sortRecipes(recipes, detections, currentSortMode)
+                    RecipeUiState.RecipesReady(detections, sorted, currentSortMode)
                 }
             } catch (e: GeminiException) {
                 _uiState.value = RecipeUiState.Error(
@@ -152,7 +154,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun backToRecipes() {
         if (latestDetections.isNotEmpty() && latestRecipes.isNotEmpty()) {
             scanningEnabled.set(false)
-            _uiState.value = RecipeUiState.RecipesReady(latestDetections, latestRecipes)
+            val sorted = sortRecipes(latestRecipes, latestDetections, currentSortMode)
+            _uiState.value = RecipeUiState.RecipesReady(latestDetections, sorted, currentSortMode)
         } else {
             backToDetected()
         }
@@ -164,6 +167,45 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         } else {
             _uiState.value = RecipeUiState.Detected(latestDetections)
             scanningEnabled.set(true)
+        }
+    }
+
+    fun changeSortMode(mode: SortMode) {
+        if (mode == currentSortMode) return
+        currentSortMode = mode
+        if (latestRecipes.isNotEmpty() && latestDetections.isNotEmpty()) {
+            val sorted = sortRecipes(latestRecipes, latestDetections, mode)
+            _uiState.value = RecipeUiState.RecipesReady(latestDetections, sorted, mode)
+        }
+    }
+
+    private fun sortRecipes(
+        recipes: List<RecipeRecommendation>,
+        detections: List<DetectionResult>,
+        mode: SortMode
+    ): List<RecipeRecommendation> {
+        return when (mode) {
+            SortMode.CALORIES_ASC -> recipes.sortedBy { it.calories.takeIf { c -> c > 0 } ?: Int.MAX_VALUE }
+            SortMode.INGREDIENT_MATCH -> {
+                val detectedLabels = detections.map { it.label.lowercase() }.distinct()
+                recipes.sortedByDescending { recipe ->
+                    countMatches(recipe.ingredients, detectedLabels)
+                }
+            }
+        }
+    }
+
+    private fun countMatches(ingredients: List<String>, detectedLabels: List<String>): Int {
+        val keywordMap = mapOf(
+            "egg" to listOf("달걀", "계란"),
+            "onion" to listOf("양파"),
+            "potato" to listOf("감자"),
+            "tomato" to listOf("토마토"),
+            "carrot" to listOf("당근")
+        )
+        return detectedLabels.count { label ->
+            val keywords = keywordMap[label] ?: listOf(label)
+            ingredients.any { ing -> keywords.any { kw -> ing.contains(kw, ignoreCase = true) } }
         }
     }
 
