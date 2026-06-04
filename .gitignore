@@ -16,5 +16,6 @@
 .kotlin/
 local.properties
 app/google-services.json
+## 여기 앱 사양 체크 부탁드려요
 app/best_float32.tflite
 app/model
