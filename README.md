@@ -15,3 +15,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## 팀원
+권민석, 김민기, 조연주, 박수민
+## 프로젝트 설명
+딥러닝 기반 실시간 식재료 탐지 및 레시피 추천 앱
