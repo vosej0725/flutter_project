@@ -35,11 +35,14 @@ class RecipeAdapter(
         private val tvRecipeSummary: TextView = view.findViewById(R.id.tvRecipeSummary)
         private val tvRecipeIngredients: TextView = view.findViewById(R.id.tvRecipeIngredients)
 
+        private val tvRecipeCalories: TextView = view.findViewById(R.id.tvRecipeCalories)
+
         fun bind(recipe: RecipeRecommendation, number: Int) {
             tvRecipeNumber.text = number.toString()
             tvRecipeTitle.text = recipe.title
             tvRecipeSummary.text = recipe.summary.ifBlank { "감지한 재료로 만들 수 있는 추천 요리입니다." }
             tvRecipeIngredients.text = recipe.ingredients.take(5).joinToString(" · ")
+            tvRecipeCalories.text = if (recipe.calories > 0) "약 ${recipe.calories} kcal" else ""
             itemView.setOnClickListener { onRecipeClick(recipe) }
         }
     }
