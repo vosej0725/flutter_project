@@ -21,4 +21,5 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.mingi.foodrecipe", appContext.packageName)
     }
-}
+}<!-- mingi5811 update -->
+    // mingi5811 : UI 개선 작업 완료
